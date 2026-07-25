@@ -9,6 +9,8 @@ st.set_page_config(page_title="Customer Churn Dashboard", layout="wide")
 # Load Dataset
 df = pd.read_csv("Cleaned_Data.csv")
 
+# Show all column names (temporary)
+st.write(df.columns)
 # Title
 st.title("🏦 Customer Segmentation & Churn Analytics")
 
