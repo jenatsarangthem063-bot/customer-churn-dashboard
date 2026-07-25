@@ -13,15 +13,43 @@ df = pd.read_csv("Cleaned_Data.csv")
 st.title("🏦 Customer Segmentation & Churn Analytics")
 
 # Sidebar Filter
+# Sidebar Filters
 st.sidebar.header("Filters")
 
+# Geography
 country = st.sidebar.multiselect(
     "Select Geography",
     options=df["Geography"].unique(),
     default=df["Geography"].unique()
 )
 
-filtered_df = df[df["Geography"].isin(country)]
+# Gender
+gender = st.sidebar.multiselect(
+    "Select Gender",
+    options=df["Gender"].unique(),
+    default=df["Gender"].unique()
+)
+
+# Active Member
+active = st.sidebar.multiselect(
+    "Active Member",
+    options=df["IsActiveMember"].unique(),
+    default=df["IsActiveMember"].unique()
+)
+
+# Credit Card Holder
+credit_card = st.sidebar.multiselect(
+    "Has Credit Card",
+    options=df["HasCrCard"].unique(),
+    default=df["HasCrCard"].unique()
+)
+
+filtered_df = df[
+    (df["Geography"].isin(country)) &
+    (df["Gender"].isin(gender)) &
+    (df["IsActiveMember"].isin(active)) &
+    (df["HasCrCard"].isin(credit_card))
+]
 
 # KPI Cards
 col1, col2, col3, col4 = st.columns(4)
