@@ -39,7 +39,6 @@ st.title("🏦 Customer Segmentation & Churn Analytics")
 # Title
 st.title("🏦 Customer Segmentation & Churn Analytics")
 
-# Sidebar Filter
 # Sidebar Filters
 st.sidebar.header("Filters")
 
@@ -116,6 +115,25 @@ st.plotly_chart(fig2, use_container_width=True)
 
 # Customer Table
 st.subheader("Customer Data")
+st.plotly_chart(fig, use_container_width=True)
 
+# Credit Score Group Churn Rate
+st.subheader("Credit Score Group Churn Rate")
+
+credit_churn = filtered_df.groupby("Credit_Group")["Exited"].mean().reset_index()
+
+fig4 = px.bar(
+    credit_churn,
+    x="Credit_Group",
+    y="Exited",
+    color="Credit_Group",
+    title="Churn Rate by Credit Score Group"
+)
+
+st.plotly_chart(fig4, use_container_width=True)
+
+# Customer Data
+st.subheader("Customer Data")
+st.dataframe(filtered_df)
 st.dataframe(filtered_df)
 st.write(df.columns)
