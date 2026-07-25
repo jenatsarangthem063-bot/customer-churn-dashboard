@@ -135,5 +135,4 @@ st.plotly_chart(fig4, use_container_width=True)
 # Customer Data
 st.subheader("Customer Data")
 st.dataframe(filtered_df)
-st.dataframe(filtered_df)
 st.write(df.columns)
