@@ -14,29 +14,7 @@ df["Age_Group"] = pd.cut(
     bins=[0, 30, 45, 60, 100],
     labels=["<30", "30-45", "46-60", "60+"]
 )
-# Create Credit Score Groups
-df["Credit_Group"] = pd.cut(
-    df["CreditScore"],
-    bins=[0, 500, 700, 900],
-    labels=["Low", "Medium", "High"]
-)
-st.subheader("Credit Score Group Churn Rate")
 
-credit_churn = (
-    filtered_df.groupby("Credit_Group")["Exited"]
-    .mean()
-    .reset_index()
-)
-
-fig4 = px.bar(
-    credit_churn,
-    x="Credit_Group",
-    y="Exited",
-    color="Credit_Group",
-    title="Churn Rate by Credit Score Group"
-)
-
-st.plotly_chart(fig4, use_container_width=True)
 # Show all column names (temporary)
 st.write(df.columns)
 # Title
