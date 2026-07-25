@@ -17,6 +17,25 @@ df["Age_Group"] = pd.cut(
 
 # Show all column names (temporary)
 st.write(df.columns)
+# Load Dataset
+df = pd.read_csv("Cleaned_Data.csv")
+
+# Create Age Groups
+df["Age_Group"] = pd.cut(
+    df["Age"],
+    bins=[0, 30, 45, 60, 100],
+    labels=["<30", "30-45", "46-60", "60+"]
+)
+
+# Create Credit Score Groups
+df["Credit_Group"] = pd.cut(
+    df["CreditScore"],
+    bins=[0, 500, 700, 900],
+    labels=["Low", "Medium", "High"]
+)
+
+# Title
+st.title("🏦 Customer Segmentation & Churn Analytics")
 # Title
 st.title("🏦 Customer Segmentation & Churn Analytics")
 
