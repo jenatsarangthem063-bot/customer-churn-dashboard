@@ -201,20 +201,6 @@ fig2 = px.histogram(
 
 st.plotly_chart(fig2, use_container_width=True)
 
-# High Value Customer Churn
-st.subheader("High Value Customer Churn")
-
-high_value = (
-    filtered_df.groupby("High_Value")["Exited"]
-    .mean()
-    .reset_index()
-)
-
-high_value["High_Value"] = high_value["High_Value"].replace({
-    True: "High Value Customers",
-    False: "Regular Customers"
-})
-
 
 # Customer Data
 st.subheader("Customer Data")
