@@ -172,11 +172,13 @@ fig6 = px.bar(
     color="High_Value",
     title="Churn Rate: High Value vs Regular Customers"
 )
+st.plotly_chart(
+    fig6,
+    use_container_width=True,
+    key="high_value_chart"
+)
 
-st.plotly_chart(fig6, use_container_width=True)
 
-
-st.plotly_chart(fig6, use_container_width=True)
 # Age Distribution
 st.subheader("Age Distribution")
 
