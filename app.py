@@ -215,15 +215,6 @@ high_value["High_Value"] = high_value["High_Value"].replace({
     False: "Regular Customers"
 })
 
-fig6 = px.bar(
-    high_value,
-    x="High_Value",
-    y="Exited",
-    color="High_Value",
-    title="Churn Rate of High Value Customers"
-)
-
-st.plotly_chart(fig6, use_container_width=True)
 
 # Customer Data
 st.subheader("Customer Data")
