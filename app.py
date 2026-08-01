@@ -86,9 +86,30 @@ filtered_df = df[
 col1, col2, col3, col4, col5 = st.columns(5)
 
 col1.metric("Total Customers", len(filtered_df))
-col2.metric("Overall Churn Rate", f"{filtered_df['Exited'].mean()*100:.2f}%")
-col3.metric("Average Balance", f"{filtered_df['Balance'].mean():,.2f}")
-col4.metric("Active Members", int(filtered_df["IsActiveMember"].sum()))
+
+col2.metric(
+    "Overall Churn Rate",
+    f"{filtered_df['Exited'].mean()*100:.2f}%"
+)
+
+col3.metric(
+    "Average Balance",
+    f"{filtered_df['Balance'].mean():,.2f}"
+)
+
+col4.metric(
+    "Active Members",
+    int(filtered_df["IsActiveMember"].sum())
+)
+
+high_value_churn = (
+    filtered_df[filtered_df["High_Value"]]["Exited"].mean() * 100
+)
+
+col5.metric(
+    "High Value Churn",
+    f"{high_value_churn:.2f}%"
+)
 high_value_churn = (
     filtered_df[filtered_df["High_Value"]]["Exited"].mean() * 100
 )
