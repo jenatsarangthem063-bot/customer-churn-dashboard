@@ -109,7 +109,24 @@ col5.metric(
     f"{hv_rate:.2f}%"
 )
 
-# -------------------------
+st.subheader("Overall Customer Churn")
+
+churn_counts = filtered_df["Exited"].value_counts().reset_index()
+churn_counts.columns = ["Status", "Count"]
+
+churn_counts["Status"] = churn_counts["Status"].replace({
+    0: "Retained",
+    1: "Churned"
+})
+
+fig_pie = px.pie(
+    churn_counts,
+    names="Status",
+    values="Count",
+    title="Customer Churn Distribution"
+)
+
+st.plotly_chart(fig_pie, use_container_width=True)
 # Geography-wise Churn
 # -------------------------
 st.subheader("Geography-wise Churn")
