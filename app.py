@@ -45,7 +45,7 @@ df["High_Value"] = df["Balance"] >= 100000
 # Title
 # -------------------------
 st.title("🏦 Customer Segmentation & Churn Pattern Analytics")
-
+st.caption("Unified Mentor Project | Customer Segmentation & Churn Pattern Analytics in European Banking")
 # -------------------------
 # Sidebar Filters
 # -------------------------
