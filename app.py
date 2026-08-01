@@ -68,11 +68,17 @@ active = st.sidebar.multiselect(
     sorted(df["IsActiveMember"].unique()),
     default=sorted(df["IsActiveMember"].unique())
 )
+credit_card = st.sidebar.multiselect(
+    "Has Credit Card",
+    sorted(df["HasCrCard"].unique()),
+    default=sorted(df["HasCrCard"].unique())
+)
 
 filtered_df = df[
     (df["Geography"].isin(country)) &
     (df["Gender"].isin(gender)) &
-    (df["IsActiveMember"].isin(active))
+    (df["IsActiveMember"].isin(active))&
+    (df["HasCrCard"].isin(credit_card))
 ]
 
 # -------------------------
@@ -288,8 +294,19 @@ fig_high = px.bar(
 )
 
 st.plotly_chart(fig_high, use_container_width=True)
-
 # -------------------------
+# Salary Distribution
+# -------------------------
+st.subheader("Estimated Salary Distribution")
+
+fig_salary = px.histogram(
+    filtered_df,
+    x="EstimatedSalary",
+    nbins=30,
+    title="Estimated Salary Distribution"
+)
+
+st.plotly_chart(fig_salary, use_container_width=True)
 # Customer Table
 # -------------------------
 st.subheader("Customer Data")
@@ -308,4 +325,16 @@ st.markdown(f"""
 - **Active Members:** {filtered_df['IsActiveMember'].sum()}
 - Use the filters in the sidebar to analyze customer segments.
 """)
+st.subheader("💡 Business Recommendations")
 
+st.success("""
+• Focus retention efforts on high-value customers.
+
+• Increase engagement among inactive customers.
+
+• Develop country-specific retention strategies.
+
+• Reward loyal customers with longer tenure.
+
+• Monitor low credit score customers for early intervention.
+""")
