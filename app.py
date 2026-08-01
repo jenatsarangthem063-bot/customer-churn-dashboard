@@ -179,13 +179,7 @@ high_value["High_Value"] = high_value["High_Value"].replace({
     False: "Regular"
 })
 
-fig6 = px.bar(
-    high_value,
-    x="High_Value",
-    y="Exited",
-    color="High_Value",
-    title="Churn Rate: High Value vs Regular Customers"
-)
+
 
 st.plotly_chart(fig6, use_container_width=True)
 # Age Distribution
@@ -201,7 +195,29 @@ fig2 = px.histogram(
 
 st.plotly_chart(fig2, use_container_width=True)
 
+# High Value Customer Churn
+st.subheader("High Value Customer Churn")
 
+high_value = (
+    filtered_df.groupby("High_Value")["Exited"]
+    .mean()
+    .reset_index()
+)
+
+high_value["High_Value"] = high_value["High_Value"].replace({
+    True: "High Value Customers",
+    False: "Regular Customers"
+})
+
+fig6 = px.bar(
+    high_value,
+    x="High_Value",
+    y="Exited",
+    color="High_Value",
+    title="Churn Rate of High Value Customers"
+)
+
+st.plotly_chart(fig6, use_container_width=True)
 
 # Customer Data
 st.subheader("Customer Data")
