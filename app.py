@@ -163,7 +163,13 @@ fig5 = px.bar(
     color="Tenure_Group",
     title="Churn Rate by Tenure Group"
 )
-
+fig6 = px.bar(
+    high_value,
+    x="High_Value",
+    y="Exited",
+    color="High_Value",
+    title="Churn Rate: High Value vs Regular Customers"
+)
 st.plotly_chart(fig5, use_container_width=True)
 # High Value Customer Churn
 st.subheader("High Value Customer Churn")
