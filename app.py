@@ -15,8 +15,6 @@ df["Age_Group"] = pd.cut(
     labels=["<30", "30-45", "46-60", "60+"]
 )
 
-# Show all column names (temporary)
-st.write(df.columns)
 # Load Dataset
 df = pd.read_csv("Cleaned_Data.csv")
 
@@ -33,7 +31,12 @@ df["Credit_Group"] = pd.cut(
     bins=[0, 500, 700, 900],
     labels=["Low", "Medium", "High"]
 )
-
+# Create Tenure Groups
+df["Tenure_Group"] = pd.cut(
+    df["Tenure"],
+    bins=[-1, 3, 7, 10],
+    labels=["New", "Mid-term", "Long-term"]
+)
 # Title
 st.title("🏦 Customer Segmentation & Churn Analytics")
 # Title
@@ -112,8 +115,25 @@ fig4 = px.bar(
     color="Credit_Group",
     title="Churn Rate by Credit Score Group"
 )
+st.plotly_chart(fig4, use_container_width=True)
+# Tenure Group Churn Rate
+st.subheader("Tenure Group Churn Rate")
 
+tenure_churn = (
+    filtered_df.groupby("Tenure_Group")["Exited"]
+    .mean()
+    .reset_index()
+)
 
+fig5 = px.bar(
+    tenure_churn,
+    x="Tenure_Group",
+    y="Exited",
+    color="Tenure_Group",
+    title="Churn Rate by Tenure Group"
+)
+
+st.plotly_chart(fig5, use_container_width=True)
 # Age Distribution
 st.subheader("Age Distribution")
 
@@ -127,8 +147,6 @@ fig2 = px.histogram(
 
 st.plotly_chart(fig2, use_container_width=True)
 
-# Customer Table
-st.subheader("Customer Data")
 
 
 # Customer Data
