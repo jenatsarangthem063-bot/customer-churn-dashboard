@@ -37,6 +37,8 @@ df["Tenure_Group"] = pd.cut(
     bins=[-1, 3, 7, 10],
     labels=["New", "Mid-term", "Long-term"]
 )
+# High Value Customers
+df["High_Value"] = df["Balance"] >= 100000
 # Title
 st.title("🏦 Customer Segmentation & Churn Analytics")
 # Title
@@ -81,12 +83,20 @@ filtered_df = df[
 ]
 
 # KPI Cards
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 col1.metric("Total Customers", len(filtered_df))
 col2.metric("Overall Churn Rate", f"{filtered_df['Exited'].mean()*100:.2f}%")
 col3.metric("Average Balance", f"{filtered_df['Balance'].mean():,.2f}")
 col4.metric("Active Members", int(filtered_df["IsActiveMember"].sum()))
+high_value_churn = (
+    filtered_df[filtered_df["High_Value"]]["Exited"].mean() * 100
+)
+
+col5.metric(
+    "High Value Churn",
+    f"{high_value_churn:.2f}%"
+)
 
 # Geography-wise Churn
 st.subheader("Geography-wise Churn")
@@ -134,6 +144,29 @@ fig5 = px.bar(
 )
 
 st.plotly_chart(fig5, use_container_width=True)
+# High Value Customer Churn
+st.subheader("High Value Customer Churn")
+
+high_value = (
+    filtered_df.groupby("High_Value")["Exited"]
+    .mean()
+    .reset_index()
+)
+
+high_value["High_Value"] = high_value["High_Value"].replace({
+    True: "High Value",
+    False: "Regular"
+})
+
+fig6 = px.bar(
+    high_value,
+    x="High_Value",
+    y="Exited",
+    color="High_Value",
+    title="Churn Rate: High Value vs Regular Customers"
+)
+
+st.plotly_chart(fig6, use_container_width=True)
 # Age Distribution
 st.subheader("Age Distribution")
 
